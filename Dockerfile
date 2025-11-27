@@ -11,13 +11,13 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
-# Set working directory to LavaLust (where composer.json is)
-WORKDIR /var/www/html/LavaLust
-
-# Copy only the LavaLust folder into the container
+# Copy the entire LavaLust folder into the container
 COPY LavaLust/ /var/www/html/LavaLust/
 
-# Install dependencies WHERE composer.json exists
+# Set working directory to where composer.json is
+WORKDIR /var/www/html/LavaLust/app
+
+# Install dependencies (this will create vendor/ here)
 RUN composer install --optimize-autoloader --no-dev
 
 # Configure Apache to serve from LavaLust/public
