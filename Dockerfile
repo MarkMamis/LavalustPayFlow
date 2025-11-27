@@ -30,8 +30,13 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 # Install dependencies
 RUN composer install --optimize-autoloader --no-dev
 
-# Configure Apache to serve from LavaLust/public
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/LavaLust/public|g' /etc/apache2/sites-available/000-default.conf
+# Configure Apache to serve from the project root and set ServerName
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/LavaLust|g' /etc/apache2/sites-available/000-default.conf \
+    && printf "<Directory /var/www/html/LavaLust>\n    AllowOverride All\n</Directory>\n" > /etc/apache2/conf-available/lavalust-root.conf \
+    && a2enconf lavalust-root.conf \
+    && echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
+    && a2enconf servername.conf \
+    && a2enmod rewrite
 
 # Expose port 80
 EXPOSE 80
