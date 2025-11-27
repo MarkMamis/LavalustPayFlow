@@ -7,9 +7,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     unzip \
     zlib1g-dev \
-    libpng-dev \          # ← Add this
-    libjpeg-dev \         # ← Add this
-    libfreetype6-dev \    # ← Add this
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
