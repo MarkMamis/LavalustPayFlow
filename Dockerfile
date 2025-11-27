@@ -1,12 +1,15 @@
 # Use official PHP image with Apache
 FROM php:8.2-apache
 
-# Install system dependencies + zlib1g-dev for gd extension
+# Install system dependencies + GD dependencies
 RUN apt-get update && apt-get install -y \
     git \
     curl \
     unzip \
     zlib1g-dev \
+    libpng-dev \          # ← Add this
+    libjpeg-dev \         # ← Add this
+    libfreetype6-dev \    # ← Add this
     && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
@@ -19,7 +22,8 @@ COPY LavaLust/ /var/www/html/LavaLust/
 WORKDIR /var/www/html/LavaLust/app
 
 # Install PHP extensions required by phpoffice/phpspreadsheet
-RUN docker-php-ext-install gd
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd
 
 # Install dependencies
 RUN composer install --optimize-autoloader --no-dev
