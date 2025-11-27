@@ -23,7 +23,7 @@ WORKDIR /var/www/html/LavaLust/app
 
 # Install PHP extensions required by phpoffice/phpspreadsheet
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd
+    && docker-php-ext-install gd zip
 
 # Install dependencies
 RUN composer install --optimize-autoloader --no-dev
