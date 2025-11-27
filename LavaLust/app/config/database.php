@@ -58,16 +58,24 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 */
 
 $database['main'] = array(
-    'driver'	=> getenv('DB_DRIVER') ?: 'mysql',
-    'hostname'	=> getenv('DB_HOSTNAME') ?: 'localhost',
-    'port'		=> getenv('DB_PORT') ?: '3306',
-    'username'	=> getenv('DB_USERNAME') ?: 'root',
-    'password'	=> getenv('DB_PASSWORD') ?: '',
-    'database'	=> getenv('DB_DATABASE') ?: 'payrolldb',
-    'charset'	=> getenv('DB_CHARSET') ?: 'utf8mb4',
-    'dbprefix'	=> getenv('DB_PREFIX') ?: '',
+    'driver'    => 
+        (isset($_ENV['DB_DRIVER']) ? $_ENV['DB_DRIVER'] : null),
+    'hostname'  => 
+        (isset($_ENV['DB_HOSTNAME']) ? $_ENV['DB_HOSTNAME'] : null),
+    'port'      => 
+        (isset($_ENV['DB_PORT']) ? $_ENV['DB_PORT'] : null),
+    'username'  => 
+        (isset($_ENV['DB_USERNAME']) ? $_ENV['DB_USERNAME'] : null),
+    'password'  => 
+        (isset($_ENV['DB_PASSWORD']) ? $_ENV['DB_PASSWORD'] : null),
+    'database'  => 
+        (isset($_ENV['DB_DATABASE']) ? $_ENV['DB_DATABASE'] : null),
+    'charset'   => 
+        (isset($_ENV['DB_CHARSET']) ? $_ENV['DB_CHARSET'] : null),
+    'dbprefix'  => 
+        (isset($_ENV['DB_PREFIX']) ? $_ENV['DB_PREFIX'] : null),
     // Optional for SQLite
-    'path'      => getenv('DB_PATH') ?: ''
+    'path'      => (isset($_ENV['DB_PATH']) ? $_ENV['DB_PATH'] : null)
 );
 
 
