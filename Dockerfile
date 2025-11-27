@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libzip-dev \
     pkg-config \
+    default-libmysqlclient-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
@@ -25,7 +26,7 @@ WORKDIR /var/www/html/LavaLust/app
 
 # Install PHP extensions required by phpoffice/phpspreadsheet
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd zip
+    && docker-php-ext-install gd zip pdo_mysql
 
 # Install dependencies
 RUN composer install --optimize-autoloader --no-dev
