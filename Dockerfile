@@ -39,6 +39,10 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/LavaLust|g' 
     && a2enconf servername.conf \
     && a2enmod rewrite
 
+# Set proper permissions for writable directories (runtime/cache for currency rates, etc.)
+RUN chown -R www-data:www-data /var/www/html/LavaLust/runtime \
+    && chmod -R 755 /var/www/html/LavaLust/runtime
+
 # Expose port 80
 EXPOSE 80
 
