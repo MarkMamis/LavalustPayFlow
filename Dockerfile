@@ -17,7 +17,10 @@ COPY LavaLust/ /var/www/html/LavaLust/
 # Set working directory to where composer.json is
 WORKDIR /var/www/html/LavaLust/app
 
-# Install dependencies (this will create vendor/ here)
+# Install PHP extensions required by phpoffice/phpspreadsheet
+RUN docker-php-ext-install gd
+
+# Install dependencies
 RUN composer install --optimize-autoloader --no-dev
 
 # Configure Apache to serve from LavaLust/public
