@@ -11,22 +11,19 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
-# Set working directory
-WORKDIR /var/www/html
+# Set working directory to LavaLust (where composer.json is)
+WORKDIR /var/www/html/LavaLust
 
-# Copy project files
-COPY . .
+# Copy only the LavaLust folder into the container
+COPY LavaLust/ /var/www/html/LavaLust/
 
-# Install PHP extensions required by Laravel/CodeIgniter
-RUN docker-php-ext-install pdo_mysql mysqli
-
-# Install dependencies
+# Install dependencies WHERE composer.json exists
 RUN composer install --optimize-autoloader --no-dev
 
-# Configure Apache to serve from public/
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+# Configure Apache to serve from LavaLust/public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/LavaLust/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Expose port 80 (Render will map it to $PORT)
+# Expose port 80
 EXPOSE 80
 
 # Start Apache
