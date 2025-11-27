@@ -56,26 +56,17 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 |   $database variable.
 |   Example: $database['another_example'] = array('key' => 'value')
 */
-
 $database['main'] = array(
-    'driver'    => 
-        (isset($_ENV['DB_DRIVER']) ? $_ENV['DB_DRIVER'] : null),
-    'hostname'  => 
-        (isset($_ENV['DB_HOSTNAME']) ? $_ENV['DB_HOSTNAME'] : null),
-    'port'      => 
-        (isset($_ENV['DB_PORT']) ? $_ENV['DB_PORT'] : null),
-    'username'  => 
-        (isset($_ENV['DB_USERNAME']) ? $_ENV['DB_USERNAME'] : null),
-    'password'  => 
-        (isset($_ENV['DB_PASSWORD']) ? $_ENV['DB_PASSWORD'] : null),
-    'database'  => 
-        (isset($_ENV['DB_DATABASE']) ? $_ENV['DB_DATABASE'] : null),
-    'charset'   => 
-        (isset($_ENV['DB_CHARSET']) ? $_ENV['DB_CHARSET'] : null),
-    'dbprefix'  => 
-        (isset($_ENV['DB_PREFIX']) ? $_ENV['DB_PREFIX'] : null),
+    'driver'    => $_ENV['DB_DRIVER'] ?: '',
+    'hostname'  => $_ENV['DB_HOSTNAME'] ?: '',
+    'port'      => $_ENV['DB_PORT'] ?: '',
+    'username'  => $_ENV['DB_USERNAME'] ?: '',
+    'password'  => $_ENV['DB_PASSWORD'] ?: '',
+    'database'  => $_ENV['DB_DATABASE'] ?: '',
+    'charset'   => $_ENV['DB_CHARSET'] ?: '',
+    'dbprefix'  => $_ENV['DB_PREFIX'] ?: '',
     // Optional for SQLite
-    'path'      => (isset($_ENV['DB_PATH']) ? $_ENV['DB_PATH'] : null)
+    'path'      => $_ENV['DB_PATH'] ?: ''
 );
 
 
