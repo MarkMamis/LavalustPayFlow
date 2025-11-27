@@ -1,11 +1,12 @@
 # Use official PHP image with Apache
 FROM php:8.2-apache
 
-# Install system dependencies
+# Install system dependencies + zlib1g-dev for gd extension
 RUN apt-get update && apt-get install -y \
     git \
     curl \
     unzip \
+    zlib1g-dev \          # ← Add this line!
     && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
